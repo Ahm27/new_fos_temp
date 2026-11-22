@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+
+echo "[*] Cleaning FOS build files..."
+
+docker run --rm \
+    -v "$PWD":/fos \
+    --mount type=tmpfs,destination=/fos/obj \
+    fos-env sh -c "rm -rf obj/*"
+
+echo "[*] Clean complete."
