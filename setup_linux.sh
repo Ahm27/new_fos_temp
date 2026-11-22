@@ -154,7 +154,8 @@ if [ "$MODE" = "term" ]; then
     docker run --rm -it $USER_OPTS -v "$VOL" fos-env bash -c "
 $BUILD || exit 1
 echo c > /tmp/bochs.rc
-bochs -rc /tmp/bochs.rc -q 'display_library: term'
+bochs -rc /tmp/bochs.rc -q 'display_library: term' \
+    'sound: waveoutdrv=dummy, waveindrv=dummy, midioutdrv=dummy'
 "
     exit
 fi
@@ -195,7 +196,8 @@ sleep 1
 x11vnc -display :99 -forever -shared -nopw -quiet >/dev/null 2>&1 &
 websockify --web /tmp/novnc-runs 6080 localhost:5900 >/dev/null 2>&1 &
 echo c > /tmp/bochs.rc
-bochs -rc /tmp/bochs.rc -q 'display_library: x'
+bochs -rc /tmp/bochs.rc -q 'display_library: x' \
+    'sound: waveoutdrv=dummy, waveindrv=dummy, midioutdrv=dummy'
 "
 EOF
 

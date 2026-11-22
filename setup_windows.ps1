@@ -152,7 +152,7 @@ if ($Mode -eq "term") {
         '#!/bin/bash',
         "$BUILD || exit 1",
         'echo c > /tmp/bochs.rc',
-        "bochs -rc /tmp/bochs.rc -q 'display_library: term'"
+        "bochs -rc /tmp/bochs.rc -q 'display_library: term' 'sound: waveoutdrv=dummy, waveindrv=dummy, midioutdrv=dummy'"
     ) -join "`n"
 
     Write-LF $Inner $script
@@ -200,7 +200,7 @@ $script = @(
     'websockify --web /tmp/novnc-runs 6080 localhost:5900 >/dev/null 2>&1 &',
     'sleep 1',
     'echo c > /tmp/bochs.rc',
-    "bochs -rc /tmp/bochs.rc -q 'display_library: x'"
+    "bochs -rc /tmp/bochs.rc -q 'display_library: x' 'sound: waveoutdrv=dummy, waveindrv=dummy, midioutdrv=dummy'"
 ) -join "`n"
 
 Write-LF $Inner $script
