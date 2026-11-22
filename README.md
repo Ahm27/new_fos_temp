@@ -93,18 +93,48 @@ Use `Ctrl+C` to stop a run. To remove generated build files, use:
 
 ## Updating an existing setup
 
-Open a terminal in your existing clone. First check whether you have local
-changes:
+Open a terminal in your existing project and check its current repository and
+local changes:
 
 ```bash
+git remote -v
 git status
 ```
 
-Commit or stash changes you want to keep, then download the latest version:
+### If `origin` is already `Ahm27/new_fos_temp`
+
+Commit or stash changes you want to keep, then update normally:
 
 ```bash
 git pull --ff-only
 ```
+
+### If `origin` still points to the old repository
+
+Commit or stash changes you want to keep, then change `origin` and download
+the new repository's `main` branch:
+
+```bash
+git remote set-url origin https://github.com/Ahm27/new_fos_temp.git
+git fetch origin
+git pull --ff-only origin main
+```
+
+The `--ff-only` option prevents Git from creating an unexpected merge. If the
+last command says that a fast-forward is not possible, your local repository
+has different commits. Keep the old directory as a backup and make a fresh
+clone instead:
+
+```bash
+cd ..
+git clone https://github.com/Ahm27/new_fos_temp.git
+cd new_fos_temp
+```
+
+Copy only your own modified FOS source files from the old directory into the
+new clone. Do not copy `.git`, `obj`, `bochs.log`, or other generated files.
+
+### After updating
 
 For ordinary FOS source-code updates, the existing Docker environment is
 enough; run:
